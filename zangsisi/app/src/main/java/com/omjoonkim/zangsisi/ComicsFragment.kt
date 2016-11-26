@@ -13,7 +13,11 @@ import java.util.*
 
 class ComicsFragment : Fragment() {
 
-    val adapter: ComicsAdapter by lazy { ComicsAdapter() }
+    val adapter: ComicsAdapter by lazy { ComicsAdapter(object : ComicsAdapter.onAdapterEventListener {
+        override fun onClick(item: ComicsAdapter.ViewItem) {
+            startActivity(Intent(activity, ComicEpListActivity::class.java).putExtra("title", item.title))
+        }
+    }) }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,7 +28,6 @@ class ComicsFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        ButterKnife.bind(this, view!!)
         initRecyclerView()
         setDummyData()
     }
@@ -54,11 +57,6 @@ class ComicsFragment : Fragment() {
     private fun initRecyclerView() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity.applicationContext)
-        adapter.setListener(object : ComicsAdapter.onAdapterEventListener {
-            override fun onClick(item: ComicsAdapter.ViewItem) {
-                startActivity(Intent(activity, ComicEpListActivity::class.java).putExtra("title", item.title))
-            }
-        })
         recyclerView.adapter = adapter
 
     }

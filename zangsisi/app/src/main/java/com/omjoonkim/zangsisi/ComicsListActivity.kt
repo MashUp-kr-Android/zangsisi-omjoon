@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class ComicsListActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initActionbar()
@@ -44,7 +44,7 @@ class ComicsListActivity : AppCompatActivity() {
 
     }
 
-    enum class MainTab(internal var fragment: Fragment, internal var title: String) {
+    enum class MainTab(var fragment: Fragment, var title: String) {
 
         UnCompleted(ComicsFragment(), "미완결"),
         Completed(ComicsFragment(), "완결")

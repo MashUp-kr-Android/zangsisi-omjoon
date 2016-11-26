@@ -3,8 +3,6 @@ package com.omjoonkim.zangsisi;
 
 import android.app.Application;
 
-import io.realm.Realm;
-
 
 public class ZangsisiApplication extends Application {
 
@@ -12,6 +10,6 @@ public class ZangsisiApplication extends Application {
 	public void onCreate() {
 
 		super.onCreate();
-		Realm.init( getApplicationContext() );
+//		Realm.init();
 	}
 }

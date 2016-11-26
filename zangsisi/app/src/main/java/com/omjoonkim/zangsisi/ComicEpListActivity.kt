@@ -5,13 +5,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import butterknife.ButterKnife
 import kotlinx.android.synthetic.main.activity_comic_ep_list.*
 import java.util.*
 
 class ComicEpListActivity : AppCompatActivity() {
 
-    val adapter: ComicsAdapter by lazy { ComicsAdapter() }
+    val adapter: ComicsAdapter by lazy { ComicsAdapter(null) }
 
     var title: String = ""
 
@@ -19,7 +18,6 @@ class ComicEpListActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comic_ep_list)
-        ButterKnife.bind(this)
         title = intent.getStringExtra("title")
 
         initActionbar()

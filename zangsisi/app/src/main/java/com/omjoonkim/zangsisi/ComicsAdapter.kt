@@ -8,7 +8,7 @@ import butterknife.ButterKnife
 import kotlinx.android.synthetic.main.viewholder_main_item.view.*
 import java.util.*
 
-class ComicsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ComicsAdapter(var listener: onAdapterEventListener?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     interface onAdapterEventListener {
@@ -17,7 +17,6 @@ class ComicsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     var datas: List<ViewItem> = ArrayList()
-    lateinit var listener: onAdapterEventListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemView =
             ItemView(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_main_item, parent, false), listener)
@@ -39,12 +38,6 @@ class ComicsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return datas.size
     }
 
-    fun setListener(listener: onAdapterEventListener): ComicsAdapter {
-
-        this.listener = listener
-        return this
-    }
-
     class ViewItem {
 
         internal var title: String? = null
@@ -52,18 +45,14 @@ class ComicsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         internal var lecture: String? = null
     }
 
-    class ItemView(itemView: View, var listener: onAdapterEventListener) : RecyclerView.ViewHolder(itemView) {
-
-        init {
-            ButterKnife.bind(this, itemView)
-        }
+    class ItemView(itemView: View, var listener: onAdapterEventListener?) : RecyclerView.ViewHolder(itemView) {
 
         fun bindView(item: ViewItem) {
 
             itemView.textView_title?.text = item.title
             itemView.textView_lecture?.text = item.lecture
 
-            itemView.setOnClickListener { listener.onClick(item) }
+            itemView.setOnClickListener { listener?.onClick(item) }
         }
     }
 }
